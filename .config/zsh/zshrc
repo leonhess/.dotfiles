@@ -1,0 +1,26 @@
+export EDITOR='nvim'
+export TERMINAL='alacritty'
+export BROWSER='firefox'
+
+
+# Alias 
+alias ls="ls --color -F"
+
+# Autocompletion 
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+
+
+# Prompt themes 
+autoload -Uz promptinit && promptinit
+
+# Define costums theme
+prompt_frozentheme_setup() {
+  PS1="%~%# "
+}
+
+# Add the theme to promptsys
+prompt_themes+=( frozentheme )
+
+# Load the theme
+prompt bigfade
