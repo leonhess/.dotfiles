@@ -1,12 +1,12 @@
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.rust_analyzer.setup {
-  -- Server-specific settings. See `:help lspconfig-setup`
-  settings = {
-    ['rust-analyzer'] = {},
-  },
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+local servers = {
+  'arduino_language_server',         -- Arduino
+  'ruff_lsp',                      -- Python
+  'texlab',                          -- TeX / LaTeX
 }
+
 
 
 -- Global mappings.
@@ -46,3 +46,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    capabilities = capabilities,
+    on_attach = function() end,
+    }
+end
