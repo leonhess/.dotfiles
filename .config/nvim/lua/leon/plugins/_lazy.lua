@@ -64,11 +64,29 @@ local plugins = {
   -----------------------------------------------------------------------------
   -- LSP
   -----------------------------------------------------------------------------
-  
   {
     'neovim/nvim-lspconfig',
     config = get_config('lsp'),
+  },
+
+
+  -----------------------------------------------------------------------------
+   -- Completion
+  -----------------------------------------------------------------------------
+
+   {
+    'hrsh7th/nvim-cmp',
+    config = get_config('nvim-cmp'),
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',                -- LSP completion
+      'hrsh7th/cmp-nvim-lsp-signature-help', -- Highlight current parameter in function signature
+      'hrsh7th/cmp-nvim-lua',                -- Neovim Lua API completion
+      'hrsh7th/cmp-calc',                    -- Evaluate mathematical expressions
+      'hrsh7th/cmp-buffer',                  -- Buffer-local words
+      'hrsh7th/cmp-path',                    -- Directory completion
+    },
   }
+
 }
 
 
