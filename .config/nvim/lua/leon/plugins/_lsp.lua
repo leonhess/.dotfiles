@@ -53,3 +53,18 @@ for _, lsp in ipairs(servers) do
     on_attach = function() end,
     }
 end
+
+
+vim.diagnostic.config {
+  virtual_text = true,     --  pseudo hint text at line end
+  signs = true,            --  line start at info
+  update_in_insert = true, -- update lsp in insert mode
+  underline = true,        -- underline errors
+  severity_sort = false,   
+  float = {
+    border = 'rounded',    -- 
+    source = 'always',
+    header = '',
+    prefix = '',
+  },
+}
