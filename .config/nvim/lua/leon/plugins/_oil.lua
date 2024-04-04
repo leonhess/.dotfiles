@@ -1,4 +1,4 @@
-require("oil").setup({
+require("oil").setup{
   -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
   -- Set to false if you still want to use netrw.
   default_file_explorer = true,
@@ -6,9 +6,9 @@ require("oil").setup({
   -- See :help oil-columns
   columns = {
     "icon",
-    -- "permissions",
-    -- "size",
-    -- "mtime",
+    "permissions",
+    "size",
+    "mtime",
   },
   -- Buffer-local options to use for oil buffers
   buf_options = {
@@ -24,7 +24,7 @@ require("oil").setup({
     spell = false,
     list = false,
     conceallevel = 3,
-    concealcursor = "nvic",
+    concealcursor = "n",
   },
   -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
   delete_to_trash = false,
@@ -155,8 +155,10 @@ require("oil").setup({
       winblend = 0,
     },
   },
-  -- Configuration for the floating SSH window
-  ssh = {
-    border = "rounded",
-  },
-})
+}
+
+vim.keymap.set('n', '-',
+  require('oil').open, {
+    desc = 'Open parent directory'
+  }
+)
