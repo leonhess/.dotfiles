@@ -47,9 +47,22 @@ local plugins = {
     config = get_config('oil'),
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-    },
+    }
+  },
+
+
+  -----------------------------------------------------------------------------
+   -- Telescope
+  -----------------------------------------------------------------------------
+  
+  {
+    'nvim-telescope/telescope.nvim', tag = '0.1.2',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = get_config('telescope'),
   }
+
 }
+
 
 
 -----------------------------------------------------------------------------
