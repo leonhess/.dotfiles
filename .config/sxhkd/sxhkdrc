@@ -2,6 +2,10 @@
 # wm independent hotkeys
 #
 
+# blueman-manager
+super + b 
+  blueman-manager
+
 # terminal emulator
 super + Return
 	alacritty
