@@ -4,7 +4,7 @@ export XDG_CACHE_HOME="$HOME/.cache/"
 
 
 export EDITOR='nvim'
-export TERMINAL='alacritty'
+export TERMINAL='kitty'
 export BROWSER='firefox'
 
 #--------------------------------------------
