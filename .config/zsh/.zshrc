@@ -12,7 +12,7 @@ export BROWSER='firefox'
 #--------------------------------------------
 
 alias ls="ls --color -F"
-
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 #--------------------------------------------
 # Key bindings
