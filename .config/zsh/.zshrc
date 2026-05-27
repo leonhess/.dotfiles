@@ -49,6 +49,22 @@ zle -N down-line-or-beginning-search
 
 
 #--------------------------------------------
+# version control system
+#--------------------------------------------
+
+#
+#
+#
+#
+#
+
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '%S %r/%S %b (%a)%m%u%c'
+
+precmd () { vcs_info }
+setopt prompt_subst
+#--------------------------------------------
 # Them
 #--------------------------------------------
 
@@ -56,11 +72,13 @@ autoload -Uz promptinit && promptinit
 
 # Define costum theme
 prompt_frozentheme_setup() {
-  PS1="%~%# "
+  #PS1="%~/%F{blue} #"
+  PS1='%n@%m %F{red}%/%f$vcs_info_msg_0_ $ '
+  #%F{blue}/%/%F{white}/%f$vcs_info_msg_0_ $ "
 }
 
 # Add the theme to promptsys
 prompt_themes+=( frozentheme )
 
 # Load the theme
-prompt default
+prompt frozentheme
