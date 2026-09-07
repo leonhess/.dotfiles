@@ -15,6 +15,7 @@ hl.monitor({
     mode     = "highres",
     position = "1920x0",
     scale    = "1",
+    cm       = "hdr",
 })
 
 
@@ -26,6 +27,19 @@ local terminal    = "kitty"
 local fileManager = "dolphin"
 local menu = "hyprlauncher"
 local clipboardManager = "clipse"
+local background = "hyprpaper"
+
+-------------------
+---- AUTOSTART ----
+-------------------
+
+-- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+
+hl.on("hyprland.start", function () 
+  hl.exec_cmd(background)
+  hl.exec_cmd("nm-applet")
+  --hl.exec_cmd("waybar & hyprpaper & firefox")
+end)
 
 
 -------------------------------
