@@ -10,7 +10,6 @@ local root_markers2 = {
   'selene.toml',
   'selene.yml',
 }
-
 ---@type vim.lsp.Config
 return {
   cmd = { 'lua-language-server' },
@@ -22,6 +21,16 @@ return {
     Lua = {
       codeLens = { enable = true },
       hint = { enable = true, semicolon = 'Disable' },
+      runtime = {
+        version = "LuaJIT"
+      },
+      workspace = {
+        preloadFileSize = 10000,
+        library = { -- Make the server aware of Neovim runtime files
+          vim.env.VIMRUNTIME,
+
+        }
+      },
     },
   },
 }
