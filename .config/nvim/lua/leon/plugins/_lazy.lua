@@ -69,6 +69,19 @@ local plugins = {
     config = get_config('lsp'),
   },
 
+  {
+    'williamboman/mason.nvim',
+    config = get_config('mason'),
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+      'neovim/nvim-lspconfig',
+    },
+  },
+
+   --mason manager for lsp daps and linters
+  {
+    'williamboman/mason.nvim',
+  },
 
   -----------------------------------------------------------------------------
    -- Completion
