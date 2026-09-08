@@ -1,7 +1,5 @@
-
-local ruff_lsp = require('lsp.ruff')
-local lua_lsp = require('lsp.lua')
-
+local ruff_lsp = require('leon.lsp.ruff')
+local lua_lsp = require('leon.lsp.lua')
 local lsp_configs = {}
 
 -- Configure lsp config options

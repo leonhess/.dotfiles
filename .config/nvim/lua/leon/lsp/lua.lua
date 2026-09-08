@@ -28,7 +28,7 @@ return {
         preloadFileSize = 10000,
         library = { -- Make the server aware of Neovim runtime files
           vim.env.VIMRUNTIME,
-
+          vim.api.nvim_get_runtime_file("", true),
         }
       },
     },
