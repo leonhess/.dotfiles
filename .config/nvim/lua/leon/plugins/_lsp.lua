@@ -3,7 +3,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local servers = {
   'arduino_language_server',         -- Arduino
-  'ruff_lsp',                      -- Python
+  'ruff',                            -- Python
   'texlab',                          -- TeX / LaTeX
 }
 
