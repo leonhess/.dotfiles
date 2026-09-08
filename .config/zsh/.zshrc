@@ -4,7 +4,7 @@ export XDG_CACHE_HOME="$HOME/.cache/"
 
 
 export EDITOR='nvim'
-export TERMINAL='alacritty'
+export TERMINAL='kitty'
 export BROWSER='firefox'
 
 #--------------------------------------------
@@ -12,7 +12,7 @@ export BROWSER='firefox'
 #--------------------------------------------
 
 alias ls="ls --color -F"
-
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 #--------------------------------------------
 # Key bindings
@@ -47,7 +47,24 @@ zle -N down-line-or-beginning-search
 [[ -n "${key[Up]}"   ]] && bindkey -- "${key[Up]}"   up-line-or-beginning-search
 [[ -n "${key[Down]}" ]] && bindkey -- "${key[Down]}" down-line-or-beginning-search
 
+bindkey -e
 
+#--------------------------------------------
+# version control system
+#--------------------------------------------
+
+#
+#
+#
+#
+#
+
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats '%S %r/%S %b (%a)%m%u%c'
+
+precmd () { vcs_info }
+setopt prompt_subst
 #--------------------------------------------
 # Them
 #--------------------------------------------
@@ -56,11 +73,13 @@ autoload -Uz promptinit && promptinit
 
 # Define costum theme
 prompt_frozentheme_setup() {
-  PS1="%~%# "
+  #PS1="%~/%F{blue} #"
+  PS1='%n@%m %F{red}%/%f$vcs_info_msg_0_ $ '
+  #%F{blue}/%/%F{white}/%f$vcs_info_msg_0_ $ "
 }
 
 # Add the theme to promptsys
 prompt_themes+=( frozentheme )
 
 # Load the theme
-prompt default
+prompt frozentheme
