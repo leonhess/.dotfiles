@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-
     vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, opts)
     vim.keymap.set('n', '<leader>lD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, opts)
@@ -41,6 +40,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.format { async = true }
     end, opts)
     vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, opts)
+
+    vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<leader>d[', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>d]', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', opts)
 
   end,
 })
