@@ -98,8 +98,12 @@ local plugins = {
       'hrsh7th/cmp-buffer',                  -- Buffer-local words
       'hrsh7th/cmp-path',                    -- Directory completion
     },
-  }
+  },
 
+  {
+  "L3MON4D3/LuaSnip",
+  config = get_config('luasnip')
+  },
 }
 
 
