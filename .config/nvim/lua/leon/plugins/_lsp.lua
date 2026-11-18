@@ -1,20 +1,17 @@
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+local ruff_lsp = require('leon.lsp.ruff')
+local lua_lsp = require('leon.lsp.lua')
+local lua_cpp = require('leon.lsp.cpp')
+local lsp_configs = {}
 
-local servers = {
-  'arduino_language_server',         -- Arduino
-  'ruff_lsp',                      -- Python
-  'texlab',                          -- TeX / LaTeX
-}
+-- Configure lsp config options
+vim.lsp.config("ruff", ruff_lsp)
+vim.lsp.config("lua", lua_lsp)
+vim.lsp.config("cpp", lua_cpp)
 
-
-
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+-- Enable LSP config options
+vim.lsp.enable("ruff")
+vim.lsp.enable("lua")
+vim.lsp.enable("cpp")
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -27,51 +24,40 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
+    vim.keymap.set('n', '<leader>ls', vim.lsp.buf.document_symbol, opts)
+    vim.keymap.set('n', '<leader>lD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', '<leader>ld', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<leader>lk', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>lgi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>lsh', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<leader>lwa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<leader>lwr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<leader>lwl', function()
       print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
+    vim.keymap.set('n', '<leader>lD', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', '<leader>lgr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>lf', function()
       vim.lsp.buf.format { async = true }
     end, opts)
+    vim.keymap.set('n', '<leader>lc', vim.lsp.buf.code_action, opts)
+
+    vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '<leader>d[', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>d]', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', opts)
+
   end,
 })
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    capabilities = capabilities,
-    on_attach = function() end,
-    }
-end
 
--- Change diagnostic symbols
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+
+--[[-------------------------
+-- diagnostics
+----------------------------]]--
+local signs = { Error = "", Warn = "", Hint = "󰍄", Info = "" }
 for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
-
-vim.diagnostic.config {
-  virtual_text = true,     --  pseudo hint text at line end
-  signs = true,            --  line start at info
-  update_in_insert = true, -- update lsp in insert mode
-  underline = true,        -- underline errors
-  severity_sort = false,   
-  float = {
-    border = 'rounded',    -- 
-    source = 'always',
-    header = '',
-    prefix = '',
-  },
-}

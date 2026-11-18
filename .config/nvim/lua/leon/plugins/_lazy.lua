@@ -69,6 +69,19 @@ local plugins = {
     config = get_config('lsp'),
   },
 
+  {
+    'williamboman/mason.nvim',
+    config = get_config('mason'),
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+      'neovim/nvim-lspconfig',
+    },
+  },
+
+   --mason manager for lsp daps and linters
+  {
+    'williamboman/mason.nvim',
+  },
 
   -----------------------------------------------------------------------------
    -- Completion
@@ -85,8 +98,12 @@ local plugins = {
       'hrsh7th/cmp-buffer',                  -- Buffer-local words
       'hrsh7th/cmp-path',                    -- Directory completion
     },
-  }
+  },
 
+  {
+  "L3MON4D3/LuaSnip",
+  config = get_config('luasnip')
+  },
 }
 
 
