@@ -4,6 +4,7 @@ require('mason-lspconfig').setup {
   ensure_installed = { --install when not found
     'ruff',
     'lua_ls',
+    'clangd'
   },
   icons = {
     package_installed = "✓",

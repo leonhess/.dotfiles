@@ -1,15 +1,17 @@
 local ruff_lsp = require('leon.lsp.ruff')
 local lua_lsp = require('leon.lsp.lua')
+local lua_cpp = require('leon.lsp.cpp')
 local lsp_configs = {}
 
 -- Configure lsp config options
 vim.lsp.config("ruff", ruff_lsp)
 vim.lsp.config("lua", lua_lsp)
+vim.lsp.config("cpp", lua_cpp)
 
 -- Enable LSP config options
 vim.lsp.enable("ruff")
 vim.lsp.enable("lua")
-
+vim.lsp.enable("cpp")
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
